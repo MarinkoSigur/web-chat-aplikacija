@@ -5,18 +5,18 @@ class Messages extends React.Component {
     const {messages} = this.props;
     return (
       <ul className="Messages-list">
-        {messages.map(m => this.renderMessage(m))}
+        {messages.map((m, index) => this.renderMessage(m, index))}
       </ul>
     );
   }
 
-  renderMessage(message) {
+  renderMessage(message, index) {
     const {member, text} = message;
     const {currentMember} = this.props;
     const messageFromMe = member.id === currentMember.id;
     const className = messageFromMe ? "Messages-message currentMember" : "Messages-message";
     return (
-      <li className={className}>
+      <li key={index} className={className}>
         <span
           className="avatar"
           style={{backgroundColor: member.clientData.color}}

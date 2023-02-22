@@ -22,6 +22,9 @@ class App extends React.Component {
     this.drone = new window.Scaledrone("WN6CCen3mDnNtoHN", {
       data: this.state.member
     });
+  }
+
+  componentDidMount(){
     this.drone.on('open', error => {
       if (error) {
         return console.error(error);
@@ -36,7 +39,6 @@ class App extends React.Component {
       messages.push({member, text: data});
       this.setState({messages});
     });
-    
   }
   
   state = {
@@ -47,11 +49,15 @@ class App extends React.Component {
     }
   };
   onSendMessage = (message) => {
+    if (message.trim() === "") {
+      alert("Prazna poruka, upišite nešto u polje za unos poruke");
+      return;
+    }
     this.drone.publish({
       room: "observable-room",
       message
     });
-  }
+  };
   
   render(){
     return (
